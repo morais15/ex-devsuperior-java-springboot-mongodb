@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
-    private Long id;
+    private String id;
     private String text;
     private LocalDate date;
 }

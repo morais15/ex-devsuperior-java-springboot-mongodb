@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
-    private Long id;
+    private String id;
     private LocalDate date;
     private String title;
     private String body;
