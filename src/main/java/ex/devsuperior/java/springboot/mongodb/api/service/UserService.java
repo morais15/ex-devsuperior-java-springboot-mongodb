@@ -1,7 +1,6 @@
 package ex.devsuperior.java.springboot.mongodb.api.service;
 
 import ex.devsuperior.java.springboot.mongodb.api.domain.User;
-import ex.devsuperior.java.springboot.mongodb.api.dto.UserDTO;
 import ex.devsuperior.java.springboot.mongodb.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,17 +14,21 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public List<UserDTO> findAll() {
-        return userRepository.findAll().stream().map(UserDTO::new).toList();
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
-    public UserDTO findByID(String id) {
-        return new UserDTO(userRepository
+    public User findByID(String id) {
+        return userRepository
                 .findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.")));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
     }
 
-    public UserDTO createUser(UserDTO userDTO){
-        return new UserDTO(userRepository.save(new User(userDTO)));
+    public User createUser(User user){
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(String id){
+        userRepository.delete(findByID(id));
     }
 }

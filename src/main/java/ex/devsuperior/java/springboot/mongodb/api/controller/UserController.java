@@ -1,5 +1,6 @@
 package ex.devsuperior.java.springboot.mongodb.api.controller;
 
+import ex.devsuperior.java.springboot.mongodb.api.domain.User;
 import ex.devsuperior.java.springboot.mongodb.api.dto.UserDTO;
 import ex.devsuperior.java.springboot.mongodb.api.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,18 +18,24 @@ public class UserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<UserDTO> findAll(){
-        return userService.findAll();
+        return userService.findAll().stream().map(UserDTO::new).toList();
     }
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDTO findById(@PathVariable String id){
-        return userService.findByID(id);
+        return new UserDTO(userService.findByID(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO createUser(@RequestBody UserDTO userDTO){
-        return userService.createUser(userDTO);
+        return new UserDTO(userService.createUser(new User(userDTO)));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable String id){
+        userService.deleteUser(id);
     }
 }
