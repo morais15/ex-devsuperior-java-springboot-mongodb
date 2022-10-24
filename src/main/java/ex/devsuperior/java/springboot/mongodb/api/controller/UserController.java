@@ -38,4 +38,11 @@ public class UserController {
     public void deleteUser(@PathVariable String id){
         userService.deleteUser(id);
     }
+
+    @PutMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public User updateUser(@PathVariable String id, @RequestBody UserDTO userDTO){
+        userDTO.setId(id);
+        return userService.updateUser(new User(userDTO));
+    }
 }
