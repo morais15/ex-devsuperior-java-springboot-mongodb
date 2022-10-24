@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +22,10 @@ public class UserService {
     public UserDTO findByID(String id) {
         return new UserDTO(userRepository
                 .findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT, "User not found.")));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.")));
+    }
+
+    public UserDTO createUser(UserDTO userDTO){
+        return new UserDTO(userRepository.save(new User(userDTO)));
     }
 }

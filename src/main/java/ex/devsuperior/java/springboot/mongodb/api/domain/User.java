@@ -1,5 +1,6 @@
 package ex.devsuperior.java.springboot.mongodb.api.domain;
 
+import ex.devsuperior.java.springboot.mongodb.api.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,10 @@ public class User {
     private String id;
     private String name;
     private String email;
+
+    public User(UserDTO userDTO){
+        id = userDTO.getId();
+        name = userDTO.getName();
+        email = userDTO.getEmail();
+    }
 }
