@@ -1,6 +1,7 @@
 package ex.devsuperior.java.springboot.mongodb.api.controller;
 
 import ex.devsuperior.java.springboot.mongodb.api.domain.User;
+import ex.devsuperior.java.springboot.mongodb.api.dto.PostDTO;
 import ex.devsuperior.java.springboot.mongodb.api.dto.UserDTO;
 import ex.devsuperior.java.springboot.mongodb.api.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserDTO findById(@PathVariable String id){
         return new UserDTO(userService.findByID(id));
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PostDTO> findPostsByUserId(@PathVariable String id){
+        return userService.findByID(id).getPosts().stream().map(PostDTO::new).toList();
     }
 
     @PostMapping
