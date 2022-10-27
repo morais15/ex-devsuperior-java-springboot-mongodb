@@ -12,13 +12,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class UserDTO {
-    @NonNull
     private String id;
     @NonNull
     private String name;
     @NonNull
     private String email;
-    @NonNull
     private List<Post> posts;
 
     @Tolerate

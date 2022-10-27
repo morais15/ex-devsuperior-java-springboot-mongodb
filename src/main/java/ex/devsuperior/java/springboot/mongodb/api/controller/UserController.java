@@ -19,7 +19,10 @@ public class UserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<UserDTO> findAll(){
-        return userService.findAll().stream().map(UserDTO::new).toList();
+        return userService.findAll()
+                .stream()
+                .map(UserDTO::new)
+                .toList();
     }
 
     @GetMapping(value = "/{id}")
