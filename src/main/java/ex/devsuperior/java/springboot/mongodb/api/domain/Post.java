@@ -1,15 +1,15 @@
 package ex.devsuperior.java.springboot.mongodb.api.domain;
 
 import ex.devsuperior.java.springboot.mongodb.api.dto.PostDTO;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.Tolerate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +26,8 @@ public class Post {
     private String body;
     @NonNull
     private String author;
+    @Setter(AccessLevel.NONE)
+    private List<Comment> comments = new ArrayList<>();
 
     @Tolerate
     public Post(PostDTO postDTO){
@@ -34,5 +36,9 @@ public class Post {
         title = postDTO.getTitle();
         body = postDTO.getBody();
         author = postDTO.getAuthor();
+    }
+
+    public void addComment(Comment comment){
+        comments.add(comment);
     }
 }

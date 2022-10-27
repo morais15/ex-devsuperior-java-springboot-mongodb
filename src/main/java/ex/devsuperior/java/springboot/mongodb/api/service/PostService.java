@@ -1,5 +1,6 @@
 package ex.devsuperior.java.springboot.mongodb.api.service;
 
+import ex.devsuperior.java.springboot.mongodb.api.domain.Comment;
 import ex.devsuperior.java.springboot.mongodb.api.domain.Post;
 import ex.devsuperior.java.springboot.mongodb.api.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,16 @@ public class PostService {
 
     public Post createPost(Post post){
         return postRepository.save(post);
+    }
+
+    public void updatePost(Post post){
+        findPostById(post.getId());
+        postRepository.save(post);
+    }
+
+    public Post createCommentInPost(String postId, Comment comment){
+        Post post = findPostById(postId);
+        post.addComment(comment);
+        return post;
     }
 }

@@ -1,6 +1,7 @@
 package ex.devsuperior.java.springboot.mongodb.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import ex.devsuperior.java.springboot.mongodb.api.domain.Comment;
 import ex.devsuperior.java.springboot.mongodb.api.domain.Post;
 import ex.devsuperior.java.springboot.mongodb.api.domain.User;
 import lombok.Data;
@@ -9,6 +10,8 @@ import lombok.NonNull;
 import lombok.experimental.Tolerate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,6 +27,8 @@ public class PostDTO {
     @NonNull
     private String author;
 
+    private List<Comment> comments;
+
     @Tolerate
     public PostDTO(Post post){
         id = post.getId();
@@ -31,5 +36,6 @@ public class PostDTO {
         title = post.getTitle();
         body = post.getBody();
         author = post.getAuthor();
+        comments = post.getComments();
     }
 }

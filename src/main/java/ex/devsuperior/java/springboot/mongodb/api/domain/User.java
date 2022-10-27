@@ -22,7 +22,7 @@ public class User {
     @NonNull
     private String email;
     @Setter(AccessLevel.NONE)
-    @DBRef
+    @DBRef(lazy = true)
     private List<Post> posts = new ArrayList<>();
 
     @Tolerate

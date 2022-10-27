@@ -1,7 +1,9 @@
 package ex.devsuperior.java.springboot.mongodb.api.controller;
 
+import ex.devsuperior.java.springboot.mongodb.api.domain.Comment;
 import ex.devsuperior.java.springboot.mongodb.api.domain.Post;
 import ex.devsuperior.java.springboot.mongodb.api.domain.User;
+import ex.devsuperior.java.springboot.mongodb.api.dto.CommentDTO;
 import ex.devsuperior.java.springboot.mongodb.api.dto.PostDTO;
 import ex.devsuperior.java.springboot.mongodb.api.service.PostService;
 import ex.devsuperior.java.springboot.mongodb.api.service.UserService;
@@ -40,7 +42,14 @@ public class PostController {
         Post post = postService.createPost(new Post(postDTO));
         user.addPost(post);
         userService.updateUser(user);
+        return new PostDTO(post);
+    }
 
+    @PostMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public PostDTO createCommentInPost(@PathVariable String id, @RequestBody CommentDTO commentDTO) {
+        Post post = postService.createCommentInPost(id, new Comment(commentDTO));
+        postService.updatePost(post);
         return new PostDTO(post);
     }
 }
